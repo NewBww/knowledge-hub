@@ -1,0 +1,61 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Private runtime knowledge and imports
+/data/
+/knowledge/
+/uploads/
+/imports/
+/backups/
+/runtime/
+/local/
+/captures/
+/originals/
+/logs/
+/archive/
+/mocks/
+agent.token
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+
+# Python tooling and builds
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+
+# Frontend tooling
+node_modules/
+coverage/
+playwright-report/
+test-results/
+
+# Local agent state and OS metadata
+.hermes/
+.impeccable/
+.DS_Store
+*.log
+
+# Local historical evidence, not public documentation
+/docs/design-directions.md
+/docs/milestone-verification.md
+/docs/ui-verification.md
+/docs/revised-milestone-verification.md
+/docs/library-first-verification.md
+/tests/tdd-backend.md
