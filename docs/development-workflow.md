@@ -4,9 +4,12 @@
 
 Keep design references, implementation, automated checks and documentation together in the same feature/version branch and pull request. Do not create separate application and design branch lifecycles.
 
-- `main`: reviewed integration baseline; no direct publication without explicit authorization.
-- `chore/initial-version-history`: prepare the initial source import and truthful history ledger.
-- `feat/<change>` or `fix/<change>`: the next complete, narrowly scoped change.
+- Public `main`: reviewed source publication baseline; changes land through verified PRs, not direct implementation pushes.
+- Private `develop`: cross-device development integration baseline; private `main` is a separate branch, not an automatic mirror.
+- `feat/<change>`, `fix/<change>` or `docs/<change>`: one complete, narrowly scoped change.
+- Initial bootstrap/publication branches are historical work, not ongoing integration destinations. Keep provenance; delete a branch only after verifying its work landed.
+
+Use the [roadmap and release backlog](roadmap.md) as the pending-work index instead of spreading new TODO lists across dated handoffs.
 
 A design can precede implementation inside the branch. Mark it proposed until approved, and distinguish design-only preview behavior from working application functionality. Never advertise a prototype interaction as delivered merely because its HTML is committed.
 
