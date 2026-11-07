@@ -2,12 +2,21 @@
 import hashlib
 import importlib.util
 import io
+import platform
 from pathlib import Path
+import sys
 import tarfile
 
 import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+@pytest.fixture
+def synthetic_arm64_host(monkeypatch):
+    """Reach pre-build path validation only; never compile on a simulated host."""
+    monkeypatch.setattr(sys, 'platform', 'darwin')
+    monkeypatch.setattr(platform, 'machine', lambda: 'arm64')
 
 
 def builder():
@@ -77,22 +86,24 @@ def test_candidate_report_cannot_claim_release_clearance(tmp_path, monkeypatch):
         module.main(['--work', str(tmp_path / 'fresh'), '--build'])
 
 
-def test_build_candidate_rejects_unsupported_host_before_writes(tmp_path, monkeypatch):
+@pytest.mark.parametrize('host,architecture', [('linux', 'arm64'), ('darwin', 'x86_64')])
+def test_build_candidate_rejects_unsupported_host_before_writes(tmp_path, monkeypatch, host, architecture):
     module = builder()
-    monkeypatch.setattr(module.sys, 'platform', 'linux')
+    monkeypatch.setattr(module.sys, 'platform', host)
+    monkeypatch.setattr(module.platform, 'machine', lambda: architecture)
     work = tmp_path / 'fresh'
     with pytest.raises(RuntimeError, match='macOS arm64'):
         module.build_candidate(work)
     assert not work.exists()
 
 
-def test_build_candidate_rejects_existing_workspace(tmp_path):
+def test_build_candidate_rejects_existing_workspace(tmp_path, synthetic_arm64_host):
     module = builder()
     with pytest.raises(ValueError, match='fresh'):
         module.build_candidate(tmp_path)
 
 
-def test_build_candidate_rejects_shell_paths_before_writes(tmp_path):
+def test_build_candidate_rejects_shell_paths_before_writes(tmp_path, synthetic_arm64_host):
     module = builder()
     work = tmp_path / 'unsafe workspace'
     with pytest.raises(ValueError, match='metacharacters'):

@@ -227,6 +227,72 @@ def test_submit_serializes_with_revoke_or_delete(tmp_path, other):
     _finish(third)
 
 
+def _operation_worker_close_then_wait(closed, exit_allowed, *args):
+    connection = args[-1]
+    _operation_worker(*args)
+    connection.close()
+    closed.set()
+    assert exit_allowed.wait(15), 'parent did not finish cleanup'
+
+
+@pytest.mark.parametrize(('operation', 'other'), [('inspect', 'delete'), ('enable', 'revoke')])
+@pytest.mark.parametrize('fail_readback', [False, True])
+def test_compound_cleanup_after_worker_closes_pipe(tmp_path, monkeypatch, operation, other, fail_readback):
+    # Hold the real first process alive after its pipe closes: is_alive() alone
+    # cannot tell cleanup whether another release can safely be sent.
+    context = mp.get_context('spawn')
+    closed, exit_allowed = context.Event(), context.Event()
+    start, recv, finish = _start, _recv, _finish
+    workers = []
+    first_connection = None
+    finished = False
+
+    def start_worker(target, *args):
+        nonlocal first_connection
+        if not workers:
+            process, connection = start(_operation_worker_close_then_wait, closed, exit_allowed, *args)
+            first_connection = connection
+        else:
+            process, connection = start(target, *args)
+        workers.append(process)
+        return process, connection
+
+    def recv_worker(connection):
+        result = recv(connection)
+        if connection is first_connection and isinstance(result, dict):
+            assert closed.wait(15), 'worker did not close its pipe'
+            assert workers[0].is_alive()
+            if fail_readback:
+                return {'text': 'wrong readback', 'agent_access': False}
+        return result
+
+    def finish_workers(*processes):
+        nonlocal finished
+        exit_allowed.set()
+        finish(*processes)
+        finished = True
+
+    monkeypatch.setitem(globals(), '_start', start_worker)
+    monkeypatch.setitem(globals(), '_recv', recv_worker)
+    monkeypatch.setitem(globals(), '_finish', finish_workers)
+    try:
+        if fail_readback:
+            with pytest.raises(AssertionError) as failure:
+                test_compound_human_operations_keep_lock_through_readback(tmp_path, operation, other)
+            assert failure.traceback[-1].name == 'test_compound_human_operations_keep_lock_through_readback'
+            assert "assert result['text']" in str(failure.traceback[-1].statement)
+        else:
+            test_compound_human_operations_keep_lock_through_readback(tmp_path, operation, other)
+        assert finished, 'cleanup skipped process joins and exit-code assertions'
+    finally:
+        exit_allowed.set()
+        for process in workers:
+            process.join(15)
+            if process.is_alive():
+                process.kill()
+                process.join()
+
+
 @pytest.mark.parametrize(('operation', 'other'), [('inspect', 'delete'), ('enable', 'revoke')])
 def test_compound_human_operations_keep_lock_through_readback(tmp_path, operation, other):
     store = Store(tmp_path)
@@ -234,6 +300,7 @@ def test_compound_human_operations_keep_lock_through_readback(tmp_path, operatio
     capture = Intake(store).create(project, CaptureInput(text='source'))
     first, a = _start(_operation_worker, str(tmp_path), project, capture, None, operation, True)
     second, b = _start(_operation_worker, str(tmp_path), project, capture, None, other, False)
+    release_attempted = False
     try:
         assert _recv(a) == _recv(b) == 'ready'
         a.send('run')
@@ -242,14 +309,16 @@ def test_compound_human_operations_keep_lock_through_readback(tmp_path, operatio
         b.send('run')
         assert _recv(b) == 'attempt'
         early = b.recv() if b.poll(0.5) else None
+        release_attempted = True
         a.send('release')
         result = _recv(a)
         assert early is None, 'compound operation released its lock before readback'
         assert result['text'] == 'source' if operation == 'inspect' else result['agent_access'] is True
         assert isinstance(_recv(b), dict)
     finally:
-        if first.is_alive():
+        # A child can close its pipe while is_alive() still returns True.
+        # Never retry the normal-path release, including when readback fails.
+        if not release_attempted and first.is_alive():
             a.send('release')
         _finish(first, second)
-
 

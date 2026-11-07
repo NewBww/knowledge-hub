@@ -1,10 +1,20 @@
 import importlib.util
 import platform
+import sys
 import tomllib
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+@pytest.fixture
+def synthetic_arm64_host(monkeypatch):
+    """Reach mocked build stages; this is not native arm64 build acceptance."""
+    monkeypatch.setattr(sys, 'platform', 'darwin')
+    monkeypatch.setattr(platform, 'machine', lambda: 'arm64')
 
 
 def builder():
@@ -276,26 +286,37 @@ def test_cli_dry_run_cleans_its_noindex_temporary_tree(tmp_path):
     assert list(scratch.iterdir()) == []
 
 
-def test_build_requires_explicit_validated_sparkle_sdk_before_freezing(tmp_path, monkeypatch):
+def test_build_requires_explicit_validated_sparkle_sdk_before_freezing(tmp_path, monkeypatch, synthetic_arm64_host, capsys):
     import pytest
     module = builder()
     commands = []
     monkeypatch.setattr(module.subprocess, 'run', lambda *args, **kwargs: commands.append(args))
-    with pytest.raises(SystemExit):
+    with pytest.raises(SystemExit) as error:
         module.main(['--out', str(tmp_path / 'out')])
+    assert error.value.code == 2
+    assert '--sparkle-distribution' in capsys.readouterr().err
     assert commands == []
 
 
-def test_build_refuses_non_arm64_release_target_before_freezing(tmp_path, monkeypatch):
+def test_build_refuses_non_arm64_release_target_before_freezing(tmp_path, monkeypatch, capsys):
     import pytest
     module = builder()
+    monkeypatch.setattr(module.sys, 'platform', 'darwin')
     monkeypatch.setattr(module.platform, 'machine', lambda: 'x86_64')
-    monkeypatch.setattr(module, 'validate_sparkle_distribution', lambda path: path)
-    with pytest.raises(SystemExit):
-        module.main(['--out', str(tmp_path / 'out'), '--sparkle-distribution', str(tmp_path / 'sdk')])
+    calls = []
+    monkeypatch.setattr(module, 'validate_sparkle_distribution', lambda path: calls.append('validate'))
+    monkeypatch.setattr(module, 'prepare_build', lambda *args: calls.append('prepare'))
+    monkeypatch.setattr(module.subprocess, 'run', lambda *args, **kwargs: calls.append('run'))
+    out = tmp_path / 'out'
+    with pytest.raises(SystemExit) as error:
+        module.main(['--out', str(out), '--sparkle-distribution', str(tmp_path / 'sdk')])
+    assert error.value.code == 2
+    assert 'support arm64 only' in capsys.readouterr().err
+    assert calls == []
+    assert not out.exists()
 
 
-def test_build_embeds_verified_framework_before_sign_and_image(tmp_path, monkeypatch):
+def test_build_embeds_verified_framework_before_sign_and_image(tmp_path, monkeypatch, synthetic_arm64_host):
     import json
     import plistlib
     module = builder()
@@ -343,7 +364,7 @@ def test_build_embeds_verified_framework_before_sign_and_image(tmp_path, monkeyp
     assert receipt['license_blockers'] == [{'id': 'synthetic-review'}]
 
 
-def test_failed_freezer_cleans_its_temporary_bundle(tmp_path, monkeypatch):
+def test_failed_freezer_cleans_its_temporary_bundle(tmp_path, monkeypatch, synthetic_arm64_host):
     import pytest
     module = builder()
     monkeypatch.setattr(module.sys, 'platform', 'darwin')
