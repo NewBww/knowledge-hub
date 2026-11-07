@@ -135,6 +135,8 @@ def test_worker_preserves_only_safe_diagnostic_errors(tmp_path, model, code, sta
 # Supplemental acceptance: actual adapter/process paths, synthetic providers only.
 @pytest.mark.parametrize('connection,model', [('copilot', 'gpt-5.4'), ('opencode', 'synthetic/fixture-model')])
 def test_runtime_actual_native_cli_to_loopback_proposal(tmp_path, monkeypatch, connection, model):
+    from test_cli_connections import require_native_cli
+    require_native_cli(connection)
     from test_cli_connections import provider
     actual = cli_connections.CLIAdapter
     with provider() as (url, calls):
@@ -149,6 +151,18 @@ def test_runtime_actual_native_cli_to_loopback_proposal(tmp_path, monkeypatch, c
     expected = 'fixture-model' if connection == 'opencode' else model
     assert all(body['model'] == expected for _, body in calls)
     assert connections.state()['enabled'] is False
+
+
+@pytest.mark.parametrize('connection,model', [('copilot', 'gpt-5.4'), ('opencode', 'synthetic/fixture-model')])
+def test_runtime_synthetic_native_executable_to_pending_proposal(tmp_path, connection, model):
+    from test_cli_connections import synthetic_cli
+    executable = synthetic_cli(tmp_path, connection)
+    runtime, connections = runtime_for(tmp_path, connection, discover=lambda name: executable)
+    connections.confirm({'connection': connection, 'model': model}, consent=True, human=True)
+    assert runtime.check(human=True)['proposal_status'] == 'pending'
+    assert connections.state()['status'] == 'checked'
+    assert connections.state()['enabled'] is False
+    assert not list((tmp_path / 'cli-tasks').iterdir())
 
 
 def test_runtime_actual_hermes_loopback_checks_and_cancels(tmp_path):

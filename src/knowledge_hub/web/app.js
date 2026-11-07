@@ -263,6 +263,7 @@ function renderChange(change) {
   }
   const resource = path();
   const decide = async decision => {
+    const decisionVersion = viewVersion;
     clearError();
     for (const btn of actions.querySelectorAll('button')) btn.disabled = true;
     try {
@@ -280,15 +281,20 @@ function renderChange(change) {
       }
       // Read back canonical state after the write; never infer acceptance from the POST alone.
       await refreshWorkspace();
-      await openLibrary();
-      if (arrangement) { await arrangeCapture(arrangement, retain.checked); return; }
-      if (decision === 'approve' && state.items.length) {
-        const changed = change.operations[0];
-        const item = state.items.find(item => item.id === changed.id) || state.items.find(item => item.title === changed.title);
-        if (item) {
-          const readerVersion = viewVersion;
-          const current = await api(path('/knowledge/' + encodeURIComponent(item.id)));
-          if (readerVersion === viewVersion) renderItem(current);
+      if (decisionVersion === viewVersion) {
+        const library = openLibrary();
+        const readerVersion = viewVersion;
+        await library;
+        if (readerVersion === viewVersion) {
+          if (arrangement) { await arrangeCapture(arrangement, retain.checked); return; }
+          if (decision === 'approve' && state.items.length) {
+            const changed = change.operations[0];
+            const item = state.items.find(item => item.id === changed.id) || state.items.find(item => item.title === changed.title);
+            if (item) {
+              const current = await api(path('/knowledge/' + encodeURIComponent(item.id)));
+              if (readerVersion === viewVersion) renderItem(current);
+            }
+          }
         }
       }
       $('status').textContent = decision === 'approve' ? 'Change approved' : 'Change rejected';

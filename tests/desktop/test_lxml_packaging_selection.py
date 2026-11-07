@@ -2,6 +2,7 @@
 import hashlib
 import importlib.util
 import json
+import platform
 from pathlib import Path
 import struct
 import sys
@@ -24,7 +25,14 @@ def digest(data):
 
 
 @pytest.fixture
-def candidate(tmp_path):
+def synthetic_arm64_host(monkeypatch):
+    """Validate arm64 file fixtures, without loading or building native code."""
+    monkeypatch.setattr(sys, 'platform', 'darwin')
+    monkeypatch.setattr(platform, 'machine', lambda: 'arm64')
+
+
+@pytest.fixture
+def candidate(tmp_path, synthetic_arm64_host):
     module = builder()
     tag = f'cp{sys.version_info.major}{sys.version_info.minor}'
     suffix = f'cpython-{sys.version_info.major}{sys.version_info.minor}-darwin.so'
@@ -58,6 +66,18 @@ def module_sources():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module.SOURCES
+
+
+@pytest.mark.parametrize('host,architecture', [('linux', 'arm64'), ('darwin', 'x86_64')])
+def test_candidate_rejects_unsupported_host_before_staging(candidate, tmp_path, monkeypatch, host, architecture):
+    wheel, sha, evidence, _ = candidate
+    module = builder()
+    monkeypatch.setattr(module.sys, 'platform', host)
+    monkeypatch.setattr(module.platform, 'machine', lambda: architecture)
+    destination = tmp_path / 'isolated'
+    with pytest.raises(ValueError, match='runtime/architecture mismatch'):
+        module.stage_lxml_candidate(wheel, sha, evidence, destination)
+    assert not destination.exists()
 
 
 @pytest.mark.parametrize('fault', ['checksum', 'evidence-wheel', 'status', 'runtime', 'architecture',
