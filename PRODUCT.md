@@ -55,6 +55,21 @@ This requested scope expands the historical external-agent-only direction. Some 
 - Support the external-agent instruction 'setup knowledge base' by discovering state, reading the guide, proposing configuration, pausing for secure human sign-in/consent, and verifying readiness. Use a clearly synthetic connection and proposal smoke test, never owner knowledge for an automatic diagnostic. Verify claims with readback; keep temporary test material separate from accepted knowledge and remove it after the check. Report blocked, unconfigured, paused and ready states honestly.
 - Both execution paths use the same validated domain commands, review rules and idempotent work-claim boundary so they cannot process a capture twice or bypass approval. Readiness means configured authentication, compatible models, human-approved access/processing and a successful bounded workflow check; it does not mean knowledge already exists or any book has been published.
 
+## Future Feature: Confluence-Compatible Reading and Selective Publication
+
+Requested future scope, not implemented or verified compatibility. No target release number has been assigned.
+
+The user's requirements are:
+
+> Another feature i wanted to add might be the options to publish some pages or book into user's confluence space or specified path
+
+> Design with the mind that in the future i want the book to be able to publish with fully compatible confluence page so the reading page can includes graphs, tables, images, or anything that can be put into confluence
+
+- Preserve this as a reading/content-design requirement now, not merely a future plain-text export button: rich book/page content must be designed with eventual Confluence publication in mind.
+- Support selective publication of chosen pages or a book into the user's Confluence space or specified path. Confluence remains an optional publication destination; canonical knowledge stays local, and publication requires explicit destination/content authorization.
+- The compatibility target includes graphs, tables, images and other Confluence-supported content. Exact content representations, supported Confluence variants and fidelity/round-trip behavior remain to be specified and tested; do not claim full compatibility from HTML rendering or historical one-off Confluence extraction.
+- Nested books/pages and navigable outlines are related reading requirements, not evidence that an export/publishing adapter exists. Automatic synchronization or bidirectional editing is not established by these requests.
+
 ## Capabilities and Constraints
 
 - One canonical store and shared application commands across the UI, API and MCP.

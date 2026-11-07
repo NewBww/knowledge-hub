@@ -1,10 +1,19 @@
 """Local previews retain notices without bypassing public-release compliance gates."""
 import importlib.util
 import json
+import platform
+import sys
 from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+@pytest.fixture
+def synthetic_arm64_host(monkeypatch):
+    """Reach mocked orchestration, not a real native build on the test host."""
+    monkeypatch.setattr(sys, 'platform', 'darwin')
+    monkeypatch.setattr(platform, 'machine', lambda: 'arm64')
 
 
 def builder():
@@ -55,7 +64,7 @@ def test_local_preview_preserves_sdk_license_and_blocked_manifest(tmp_path):
     assert str(tmp_path) not in json.dumps(manifest)
 
 
-def test_build_collects_notices_before_signing_and_stops_public_output(tmp_path, monkeypatch):
+def test_build_collects_notices_before_signing_and_stops_public_output(tmp_path, monkeypatch, synthetic_arm64_host):
     import plistlib
     module = builder()
     app = tmp_path / 'Synthetic.app'
