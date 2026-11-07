@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "channel": "stable",
+  "architecture": "arm64",
+  "signing_account": "com.knowledgehub.desktop.release",
+  "apple_signing": "ad-hoc; not Developer ID signed or notarized",
+  "sparkle": {
+    "version": "2.10.1",
+    "url": "https://github.com/sparkle-project/Sparkle/releases/download/2.10.1/Sparkle-2.10.1.tar.xz",
+    "sha256": "1a856d2a9edb8e628de88121d7be04cf0e2167f8641650b78fca00b14244cf27"
+  },
+  "bundle_policy": {
+    "CFBundleIdentifier": "com.knowledgehub.desktop",
+    "LSMinimumSystemVersion": "12.0.0",
+    "SUFeedURL": "https://github.com/NewBww/knowledge-hub/releases/latest/download/appcast.xml",
+    "SUPublicEDKey": "eRN7w0nSTjTGD/AIwzhAYCE7Ltgm+3yqxlWK1CP11fQ=",
+    "SUEnableAutomaticChecks": false,
+    "SUAutomaticallyUpdate": false,
+    "SUAllowsAutomaticUpdates": false,
+    "SUEnableSystemProfiling": false,
+    "SUVerifyUpdateBeforeExtraction": true,
+    "SURequireSignedFeed": true,
+    "SUSignedFeedFailureExpirationInterval": 0
+  }
+}

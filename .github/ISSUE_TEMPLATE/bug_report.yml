@@ -1,0 +1,30 @@
+name: Bug report
+description: Report a reproducible problem using synthetic data.
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include knowledge, databases, tokens, account profiles or raw logs. Security concerns: read SECURITY.md and request a private channel."
+  - type: input
+    id: version
+    attributes:
+      label: Version or source commit
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: macOS version, architecture and source or packaged installation
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal synthetic reproduction
+      description: Include expected and actual behavior, and whether a fresh isolated data directory reproduces it.
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: Sanitized error and verification
+      description: No live data, credentials, personal paths or raw diagnostic archives.

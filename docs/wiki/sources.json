@@ -1,0 +1,11 @@
+{
+  "docs/getting-started.md": "Getting-Started",
+  "docs/user-guide.md": "Reading-and-Review",
+  "docs/privacy-and-context.md": "Privacy-and-Context",
+  "docs/backup-and-migration.md": "Backup-and-Migration",
+  "docs/troubleshooting.md": "Troubleshooting",
+  "docs/architecture.md": "Architecture-and-API",
+  "docs/maintenance.md": "Maintenance",
+  "SECURITY.md": "Security",
+  "docs/documentation.md": "Documentation"
+}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Knowledge Hub</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/settings.js" defer></script>
+  <script src="/assets/reading-room.js" defer></script>
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#reader">Skip to reader</a>
+  <div id="app" class="app">
+    <header class="app-header">
+      <div class="home-brand"><span class="brand">Knowledge Hub</span><button id="library-view" type="button">Library</button></div>
+      <nav aria-label="Utilities">
+        <button id="reviews-view" type="button" aria-haspopup="dialog">Activity <span id="review-count"></span></button>
+        <button id="attention-view" type="button" aria-haspopup="dialog">Needs attention</button>
+        <button id="read-view" type="button">Warehouse</button>
+        <button id="settings-view" type="button">Settings</button>
+      </nav>
+    </header>
+    <div class="workspace-body">
+      <section id="context-index" class="index" aria-label="Topic index">
+        <label for="search">Search knowledge</label>
+        <input id="search" type="search" placeholder="Find a fact" autocomplete="off" disabled>
+        <div class="index-heading"><h2 id="index-title">Shared facts</h2><button id="add-topic" type="button" disabled>Advanced: add fact</button></div>
+        <div id="topics"></div>
+      </section>
+      <main id="reader" class="reader" tabindex="-1">
+        <div class="toolbar"><span id="breadcrumb"></span><span id="revision"></span></div>
+        <div id="notice" role="alert" hidden></div>
+        <div id="content" class="reading"><h1>Opening your workspace</h1><p>Loading your Library…</p></div>
+      </main>
+    </div>
+  </div>
+  <p id="status" class="sr-only" role="status" aria-live="polite"></p>
+  <noscript>Knowledge Hub needs JavaScript to read your local workspace.</noscript>
+</body>
+</html>

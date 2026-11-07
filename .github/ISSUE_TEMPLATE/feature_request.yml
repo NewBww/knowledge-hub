@@ -1,0 +1,17 @@
+name: Feature request
+description: Describe a reading or knowledge-maintenance need.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Use generic examples, never customer or personal knowledge.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Proposed behavior and alternatives
+      description: Include permission, disclosure, review and failure behavior where relevant.
+    validations:
+      required: true
