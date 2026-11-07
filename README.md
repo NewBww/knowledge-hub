@@ -47,7 +47,7 @@ For an isolated trial, append `--data-dir "$HOME/Knowledge-Hub-Trial"`; use a ne
 - A native mixed file/folder picker registers scoped, read-only local context. Select sources explicitly for each durable Curator job; this is not bulk folder upload. Jobs stop on Quit and recover eligible work on reopen after revalidation; no closed-app processing is configured; canonical changes still require human review. See [the workflow](docs/user-guide.md#use-scoped-local-context).
 - Arbitrary source polling, automatic connector imports, universal freshness and completed cross-book follow-up/outbox processing are **not established capabilities**. The strict-CSP source bridge repair is included. Later frozen QA opened the real native panel and verified cancellation, but positive mixed selection/grant/revoke acceptance remains blocked. Public binary gates remain open; see [current evidence](docs/documentation.md).
 
-For the implementation/roadmap boundary see [Product](PRODUCT.md) and [documentation status](docs/documentation.md). Source metadata is authoritative for the version; an untagged checkout is not a release.
+For the implementation/roadmap boundary see [Product](PRODUCT.md), the [roadmap and release backlog](docs/roadmap.md), and [documentation status](docs/documentation.md). Source metadata is authoritative for the version; an untagged checkout is not a release.
 
 ## Developer and maintainer reference
 

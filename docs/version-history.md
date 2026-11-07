@@ -4,9 +4,9 @@ This ledger distinguishes application versions, design revisions, and Git histor
 
 ## Repository baseline
 
-The repository starts with the original MIT license commit, `a16544679fd5d629ee85a2538c79d8c0d24b6b6d` (`Initial commit`, November 5, 2026). Preserve this commit and its authorship.
+The public `NewBww/knowledge-hub` repository starts with the original MIT license commit, `a16544679fd5d629ee85a2538c79d8c0d24b6b6d` (`Initial commit`, November 5, 2026). Preserve this commit and its authorship.
 
-At preparation time, there are no application-version commits or Git tags on the remote. The current local application declares version `0.3.0`; it is not yet a tagged source release. Source and tests must pass the publication review before being committed or tagged.
+The reviewed source import is committed on public `main` as `b28173e6918671705907e0e1a646c09dfac6a904`, followed by separately reviewed changes. The private development repository has its own ancestry; do not import it into public history. The application declares version `0.3.0`; source publication does not establish a tagged or binary release. Exact release-candidate checks and the [release gates](roadmap.md#initial-030-release-gates) still apply.
 
 ## Historical version recovery
 
@@ -25,7 +25,7 @@ A reconstructed chronology must say when snapshots were recovered and committed.
 
 ## Design relationship
 
-The Reading room prototypes are synthetic design references, not the application runtime. Revision 7 is the current refinement candidate and is undergoing independent review. It must remain labeled proposed until approved and implemented. Its local query matches, model/connection examples and update checks are simulations, not evidence of live backend capability.
+The Reading room prototypes are synthetic design references, not the application runtime. Revision 7 is the approved design reference identified by the [documentation status](documentation.md). Approval of the design is not evidence that every interaction is implemented or accepted in the application. Its local query matches, model/connection examples and update checks are simulations, not evidence of live backend capability.
 
 Future application versions keep their corresponding approved design, implementation, tests and release notes in the same feature branch and pull request. Use a design revision identifier inside the release record rather than a parallel design-release lifecycle.
 
