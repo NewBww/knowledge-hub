@@ -55,6 +55,18 @@ This requested scope expands the historical external-agent-only direction. Some 
 - Support the external-agent instruction 'setup knowledge base' by discovering state, reading the guide, proposing configuration, pausing for secure human sign-in/consent, and verifying readiness. Use a clearly synthetic connection and proposal smoke test, never owner knowledge for an automatic diagnostic. Verify claims with readback; keep temporary test material separate from accepted knowledge and remove it after the check. Report blocked, unconfigured, paused and ready states honestly.
 - Both execution paths use the same validated domain commands, review rules and idempotent work-claim boundary so they cannot process a capture twice or bypass approval. Readiness means configured authentication, compatible models, human-approved access/processing and a successful bounded workflow check; it does not mean knowledge already exists or any book has been published.
 
+## Requested Reading and Composer Follow-up
+
+The owner's requested intent remains authoritative even where the current implementation is incomplete:
+
+> “i doesnt want the separate add knowledge and request something i want the model to learn from the input which one is which or both”
+
+> “The model choosing should include effort for the user to choose”
+
+The unified composer should infer knowledge intake, a request, or both without a mandatory mode selector. This is input-intent inference, not authorization to train on private content or mutate accepted knowledge without review. Model-effort choices must reflect the actual selected adapter/model capabilities rather than silently substituting a provider.
+
+The same design request includes selected-passage highlighter, bold, underline and strike-through for personal rereading, plus comprehensive organization of a substantial BMAD ZIP into a high-level book with navigable nested pages. A basic attachment extractor, selection/Ask menu or synthetic design demo does not establish those complete outcomes. The [roadmap](docs/roadmap.md) is a derived delivery index; this document remains the product-intent ledger. No release number is assigned to incomplete follow-up work.
+
 ## Future Feature: Confluence-Compatible Reading and Selective Publication
 
 Requested future scope, not implemented or verified compatibility. No target release number has been assigned.

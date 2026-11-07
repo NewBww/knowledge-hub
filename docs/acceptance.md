@@ -1,5 +1,7 @@
 # First vertical slice: acceptance boundary
 
+> **Historical first-slice checklist:** project creation/navigation and project-scoped routes below describe the earlier architecture, not the current shared Warehouse/Library UX. Use [next-version acceptance](next-version-acceptance.md), [documentation status](documentation.md), and the [roadmap](roadmap.md) for current delivery gates. Historical execution authorization text is not a replacement for the current task authorization.
+
 This document defines checks, not test results. Execution evidence is recorded separately after the implementation runs.
 
 ## Included

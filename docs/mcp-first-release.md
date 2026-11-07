@@ -1,5 +1,7 @@
 # MCP Library and external-agent intake — 0.2.0
 
+> **Historical 0.2.0/schema-2 contract:** version and project-argument examples below are not current discovery output. Current setup is project-free and reports schema 3; see [agent bootstrap](agent-bootstrap.md) and the [Curator contract](curator-contract.md). Packaged/live-account acceptance remains separate from source support.
+
 The installed executable supports `mcp` directly. Discover its schemas; no harness/provider keys or connector setup belongs in Knowledge Hub. Capabilities report app version 0.2.0, API version 1 and SQLite schema version 2. Human approval remains outside agent authority.
 
 ## Two ingestion routes

@@ -1,4 +1,6 @@
-# Library contract (frozen integration surface)
+# Library contract (historical project-scoped integration surface)
+
+> **Historical/internal scope:** the project-specific Python/HTTP contract below is retained for provenance and internal-service context, not as the current public integration surface. Legacy project HTTP routes return 410. Use [agent bootstrap](agent-bootstrap.md), the [Curator contract](curator-contract.md), and discovered current tool schemas for shared Library access.
 
 `from knowledge_hub.library_http import register; register(app, store)` installs the routes below. Existing authentication/DomainError handler stays on the parent app. Agent credentials can read/propose; approve/reject require `request.state.human`. Canonical Warehouse APIs remain unchanged.
 

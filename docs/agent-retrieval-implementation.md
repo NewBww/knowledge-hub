@@ -1,5 +1,7 @@
 # Progressive agent retrieval: implemented contract
 
+> **Historical/internal project-scoped contract:** the route table below is not the current public HTTP interface. Legacy project routes return HTTP 410 in the shared application. Use [agent bootstrap](agent-bootstrap.md), the [Curator contract](curator-contract.md), and current schema discovery; project-scoped service internals do not authorize clients to call removed routes.
+
 The shared `knowledge_hub.retrieval.Retrieval` service implements deterministic, local, project-scoped retrieval. It uses SQLite literal FTS5 phrase eligibility and stable title/ID ordering, **not semantic ranking or RAG**. No model, tokenizer, embedding, provider or client integration is required.
 
 ## Endpoints and parameters

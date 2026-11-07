@@ -1,5 +1,7 @@
 # Working with your own agent
 
+> **Historical architecture note:** the external-agent-only runner and file/folder intake descriptions below record an earlier design, not the current complete adapter/picker contract. Current behavior is specified in [agent bootstrap](agent-bootstrap.md), the [Curator contract](curator-contract.md), and [documentation status](documentation.md). Files attach; folders grant scoped read-only access, not recursive upload. Local adapter execution does not confer human approval or provider-disclosure consent.
+
 Knowledge Hub must be usable and maintainable with each owner's preferred agent and model setup. It must not depend on the creator's Hermes profile, subscriptions, credentials or private knowledge.
 
 ## Two different agent jobs
