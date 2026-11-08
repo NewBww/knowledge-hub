@@ -7,5 +7,10 @@
   "docs/architecture.md": "Architecture-and-API",
   "docs/maintenance.md": "Maintenance",
   "SECURITY.md": "Security",
-  "docs/documentation.md": "Documentation"
+  "docs/documentation.md": "Documentation",
+  "docs/developer-quickstart.md": "Developer-Quickstart",
+  "docs/code-map.md": "Code-Map",
+  "docs/agent-bootstrap.md": "Agent-Setup",
+  "docs/curator-connections.md": "Connections",
+  "docs/wiki-maintenance.md": "Wiki-Maintenance"
 }

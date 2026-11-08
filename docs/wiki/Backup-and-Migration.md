@@ -2,6 +2,8 @@
 
 # Backup, restore and migration
 
+[Documentation home](https://github.com/NewBww/knowledge-hub/wiki/Home) · [Status and limits](https://github.com/NewBww/knowledge-hub/wiki/Documentation)
+
 ## Before an upgrade
 
 1. Quit Knowledge Hub and disconnect/stop all MCP clients and other processes using the same data root. The app closing does not necessarily terminate an independently launched MCP server.

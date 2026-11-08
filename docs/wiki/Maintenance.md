@@ -2,6 +2,17 @@
 
 # Release and repository maintenance
 
+[Documentation home](https://github.com/NewBww/knowledge-hub/wiki/Home) · [Status and limits](https://github.com/NewBww/knowledge-hub/wiki/Documentation)
+
+**On this page**
+
+- [CI is not a release certificate](#ci-is-not-a-release-certificate)
+- [Local readiness check (November 7, 2026)](#local-readiness-check-november-7-2026)
+- [Source-only DRAFT publication](#source-only-draft-publication)
+- [Release checklist](#release-checklist)
+- [Update policy](#update-policy)
+- [Repository settings proposal (owner applies)](#repository-settings-proposal-owner-applies)
+
 **Unfinished source-only DRAFT — 0.3.0 unreleased.** This is not a finished product or a cleared binary release.
 
 ## CI is not a release certificate

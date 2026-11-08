@@ -51,6 +51,6 @@ For the implementation/roadmap boundary see [Product](PRODUCT.md), the [roadmap 
 
 ## Developer and maintainer reference
 
-[Architecture and API](docs/architecture.md) · [Design](DESIGN.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md) · [Release maintenance](docs/maintenance.md) · [Wiki source](docs/wiki/README.md)
+[Developer quickstart](docs/developer-quickstart.md) · [Code map](docs/code-map.md) · [Architecture and API](docs/architecture.md) · [Design](DESIGN.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md) · [Release maintenance](docs/maintenance.md) · [Wiki maintenance](docs/wiki-maintenance.md)
 
 Application source is [MIT licensed](LICENSE). Dependency licenses and frozen-bundle obligations are separate; [third-party notices](THIRD_PARTY_NOTICES.md) do not by themselves certify a binary for redistribution. User knowledge is not licensed by this repository.

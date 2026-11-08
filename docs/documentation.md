@@ -38,6 +38,8 @@ An explicitly unfinished source-only DRAFT may be shared without completing bina
 
 ## Wiki mirror
 
+Start with the [developer quickstart](developer-quickstart.md), [code map](code-map.md) and [Wiki maintenance guide](wiki-maintenance.md) for setup, change ownership and documentation updates. The Wiki's Home/sidebar/footer route readers, developers and maintainers without duplicating feature-status ledgers.
+
 [Wiki source](wiki/README.md) mirrors selected canonical pages with rewritten links. Edit canonical pages first, regenerate their mirrors, validate both, then publish only after source privacy review. Wiki publication is a separate Git operation; nothing here publishes automatically.
 
 ## Validation

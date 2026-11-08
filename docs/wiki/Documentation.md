@@ -2,13 +2,24 @@
 
 # Documentation authority and feature status
 
+[Documentation home](https://github.com/NewBww/knowledge-hub/wiki/Home) · [Status and limits](https://github.com/NewBww/knowledge-hub/wiki/Documentation)
+
+**On this page**
+
+- [One truth per subject](#one-truth-per-subject)
+- [Integration checkpoint](#integration-checkpoint)
+- [Verification on hand and release limits](#verification-on-hand-and-release-limits)
+- [Source DRAFT versus finished delivery](#source-draft-versus-finished-delivery)
+- [Wiki mirror](#wiki-mirror)
+- [Validation](#validation)
+
 **Unfinished source-only DRAFT — 0.3.0 unreleased.** This is not a finished product or a cleared binary release.
 
 ## One truth per subject
 
 - `pyproject.toml` is the package/build version source; bundle/artifact/feed/tag values must match it. Documentation does not declare a release by mentioning a proposed version.
 - [README](https://github.com/NewBww/knowledge-hub/blob/main/README.md) is the user entry point; [Product](https://github.com/NewBww/knowledge-hub/blob/main/PRODUCT.md) records intent and implemented/target distinctions; [Design](https://github.com/NewBww/knowledge-hub/blob/main/DESIGN.md) records the approved reading-room surface and tokens.
-- [User guide](https://github.com/NewBww/knowledge-hub/wiki/Reading-and-Review), [privacy](https://github.com/NewBww/knowledge-hub/wiki/Privacy-and-Context), [connections](https://github.com/NewBww/knowledge-hub/blob/main/docs/curator-connections.md) and [architecture](https://github.com/NewBww/knowledge-hub/wiki/Architecture-and-API) describe current behavior.
+- [User guide](https://github.com/NewBww/knowledge-hub/wiki/Reading-and-Review), [privacy](https://github.com/NewBww/knowledge-hub/wiki/Privacy-and-Context), [connections](https://github.com/NewBww/knowledge-hub/wiki/Connections) and [architecture](https://github.com/NewBww/knowledge-hub/wiki/Architecture-and-API) describe current behavior.
 - [Roadmap](https://github.com/NewBww/knowledge-hub/blob/main/docs/roadmap.md) indexes requested future features, release blockers and repository maintenance without inventing version commitments.
 - [Changelog](https://github.com/NewBww/knowledge-hub/blob/main/CHANGELOG.md) records user-facing changes; [version history](https://github.com/NewBww/knowledge-hub/blob/main/docs/version-history.md) records provenance, not retroactively reconstructed release snapshots.
 - [Release procedure](https://github.com/NewBww/knowledge-hub/blob/main/docs/releasing.md) and [maintenance](https://github.com/NewBww/knowledge-hub/wiki/Maintenance) define gates. Historical acceptance briefs and dated verification reports are not current release certificates.
@@ -39,6 +50,8 @@ Keep raw reports, machine paths and private originals out of public docs. Before
 An explicitly unfinished source-only DRAFT may be shared without completing binary acceptance or frozen-payload licensing. Before any public push, review the exact allowlisted bytes for privacy, secrets, authorship/origin and intentional attribution; DRAFT visibility is still public. This documentation does not resolve ownership or legal clearance. Protected-main merge and finished release still require actual green CI, applicable acceptance checks and relevant license gates; no force push or protection bypass is authorized.
 
 ## Wiki mirror
+
+Start with the [developer quickstart](https://github.com/NewBww/knowledge-hub/wiki/Developer-Quickstart), [code map](https://github.com/NewBww/knowledge-hub/wiki/Code-Map) and [Wiki maintenance guide](https://github.com/NewBww/knowledge-hub/wiki/Wiki-Maintenance) for setup, change ownership and documentation updates. The Wiki's Home/sidebar/footer route readers, developers and maintainers without duplicating feature-status ledgers.
 
 [Wiki source](https://github.com/NewBww/knowledge-hub/blob/main/docs/wiki/README.md) mirrors selected canonical pages with rewritten links. Edit canonical pages first, regenerate their mirrors, validate both, then publish only after source privacy review. Wiki publication is a separate Git operation; nothing here publishes automatically.
 
