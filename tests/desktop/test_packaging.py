@@ -326,8 +326,9 @@ def test_build_embeds_verified_framework_before_sign_and_image(tmp_path, monkeyp
     monkeypatch.setattr(module, 'validate_sparkle_distribution', lambda path: events.append('validate'))
     monkeypatch.setattr(module, 'embed_sparkle', lambda app, path: events.append(('embed', path)))
 
-    def notices(app, sdk, toc, *, local_preview):
+    def notices(app, sdk, toc, *, local_preview, lxml_candidate):
         assert local_preview is True
+        assert lxml_candidate is None
         assert sdk == distribution
         assert toc.name == 'Analysis-00.toc'
         events.append('notices')

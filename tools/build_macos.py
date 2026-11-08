@@ -270,7 +270,8 @@ def embed_sparkle(app: Path, distribution: Path) -> None:
 
 
 def collect_bundle_notices(app: Path, distribution: Path, analysis_toc: Path, *,
-                           collector=None, local_preview: bool = False) -> dict:
+                           collector=None, local_preview: bool = False,
+                           lxml_candidate: Path | None = None) -> dict:
     license_path = distribution / 'LICENSE'
     if license_path.is_symlink() or not license_path.is_file() or not license_path.stat().st_size:
         raise RuntimeError('Verified Sparkle SDK license is missing')
@@ -280,7 +281,12 @@ def collect_bundle_notices(app: Path, distribution: Path, analysis_toc: Path, *,
         spec.loader.exec_module(module)
         collector = module.collect
     destination = app / 'Contents/Resources/ThirdPartyNotices'
-    report = collector(app, destination, analysis_toc=analysis_toc)
+    # The isolated wheel is not installed in the builder's environment. Include its
+    # RECORD ownership and full texts; the collector's last-name-wins lookup must
+    # prefer it over installed lxml. Selection still requires the exact Analysis TOC.
+    metadata_args = ({'site_packages': [*sys.path, str(lxml_candidate)]}
+                     if lxml_candidate is not None else {})
+    report = collector(app, destination, analysis_toc=analysis_toc, **metadata_args)
     license_bytes = license_path.read_bytes()
     (destination / 'Sparkle-LICENSE.txt').write_bytes(license_bytes)
     import hashlib
@@ -357,7 +363,9 @@ def main(argv: list[str] | None = None) -> int:
         embed_sparkle(app, args.sparkle_distribution)
         notices = collect_bundle_notices(app, args.sparkle_distribution,
                                          Path(temporary) / 'build/Knowledge Hub/Analysis-00.toc',
-                                         local_preview=args.local_preview)
+                                         local_preview=args.local_preview,
+                                         lxml_candidate=(Path(temporary) / 'lxml-candidate'
+                                                         if 'lxml_candidate' in plan else None))
         if 'lxml_candidate' in plan:
             (app / 'Contents/Resources/lxml-candidate-provenance.json').write_text(
                 json.dumps(plan['lxml_candidate'], indent=2) + '\n')
