@@ -4,9 +4,9 @@ This application is client/provider-neutral. Use whichever coding agent you pref
 
 ## Orient before editing
 
-1. Read `PRODUCT.md` for product truth and `docs/acceptance.md` for the current milestone boundary.
-2. Read `tests/contracts/backend-contract.md` and `docs/agent-collaboration.md` for API, permission and extension rules.
-3. For agent retrieval, read `docs/agent-retrieval.md` and the implementation contract when present. A requirement document is not a claim that every capability is implemented.
+1. Start with [Developer quickstart](docs/developer-quickstart.md) for an isolated setup and [Code map](docs/code-map.md) for module ownership and change recipes.
+2. Read `PRODUCT.md` for intent, [documentation status](docs/documentation.md) for implemented limits, and [current acceptance](docs/next-version-acceptance.md) for the delivery boundary.
+3. Read [architecture](docs/architecture.md) and the live shared HTTP/MCP contracts before changing a transport. Older project-scoped contract briefs are historical, not current integration instructions. For agent retrieval, use [agent bootstrap](docs/agent-bootstrap.md), `docs/agent-retrieval.md` and discovered tool schemas; a requirement does not establish implementation.
 4. For UI work, read [the reader surface contract](docs/reader-surface.md) and [the design tokens](DESIGN.md). These public documents define the surface without local design-tool state. Preserve the chosen visual direction unless asked to redesign.
 5. Inspect relevant tests and the scoped Git diff. Do not copy private workspace data into fixtures or diagnostics.
 

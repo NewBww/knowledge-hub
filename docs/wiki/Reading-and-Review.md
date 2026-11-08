@@ -2,6 +2,18 @@
 
 # Reading, capture and review
 
+[Documentation home](https://github.com/NewBww/knowledge-hub/wiki/Home) · [Status and limits](https://github.com/NewBww/knowledge-hub/wiki/Documentation)
+
+**On this page**
+
+- [Three surfaces, one canonical store](#three-surfaces-one-canonical-store)
+- [Add knowledge](#add-knowledge)
+- [Use scoped local context](#use-scoped-local-context)
+- [Resume Curator work](#resume-curator-work)
+- [Request a change in context](#request-a-change-in-context)
+- [Review deliberately](#review-deliberately)
+- [Choose an agent path](#choose-an-agent-path)
+
 **Unfinished source-only DRAFT — 0.3.0 unreleased.** This is not a finished product or a cleared binary release.
 
 ## Three surfaces, one canonical store
@@ -58,6 +70,6 @@ Acceptance of Warehouse knowledge does not require creating a book. Reading-only
 
 ## Choose an agent path
 
-An external MCP agent is first class; Hermes is optional. Alternatively use Settings for one active managed connection/model. Existing account profiles may be represented in Settings, but installed, signed in, checked and enabled are distinct states. Supported transport does not prove a live account works. Read [the detailed connection contract](https://github.com/NewBww/knowledge-hub/blob/main/docs/curator-connections.md) before enabling remote processing.
+An external MCP agent is first class; Hermes is optional. Alternatively use Settings for one active managed connection/model. Existing account profiles may be represented in Settings, but installed, signed in, checked and enabled are distinct states. Supported transport does not prove a live account works. Read [the detailed connection contract](https://github.com/NewBww/knowledge-hub/wiki/Connections) before enabling remote processing.
 
 Implementation references: [shared routes](https://github.com/NewBww/knowledge-hub/blob/main/src/knowledge_hub/shared_http.py), [capture validation](https://github.com/NewBww/knowledge-hub/blob/main/src/knowledge_hub/intake_models.py), [reader behavior](https://github.com/NewBww/knowledge-hub/blob/main/src/knowledge_hub/web/app.js), [human approval boundary](https://github.com/NewBww/knowledge-hub/blob/main/src/knowledge_hub/store.py).

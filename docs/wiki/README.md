@@ -1,9 +1,15 @@
-# GitHub Wiki source (not published)
+# Versioned GitHub Wiki source
 
-Canonical pages live in the main repository. `sources.json` maps canonical paths to Wiki page names; the sibling topic pages are mechanically generated mirrors, not independently handwritten documentation. `Home.md` and `_Sidebar.md` provide explicit GitHub Wiki destinations, which also work when viewed in the source repository.
+The live reader/developer Wiki is at https://github.com/NewBww/knowledge-hub/wiki. Canonical Markdown remains authoritative; mapped topic files here are generated mirrors, not an independent documentation fork.
 
-To regenerate: read each mapped canonical page, prepend the existing generated-source comment, resolve relative Markdown links against the canonical source directory, rewrite mapped targets to explicit `https://github.com/NewBww/knowledge-hub/wiki/<Page>` destinations (preserving fragments), and rewrite other repository targets to the repository's `blob/main/` URL. Leave external URLs and same-page anchors unchanged. Check every mapped page and anchor after regeneration. A release-maintenance generator may implement this contract; none is silently assumed here.
+See [Maintain and publish the Wiki](../wiki-maintenance.md) for the executable regeneration recipe, review rules, exact-snapshot publication and remote/rendered verification. Start with [Developer quickstart](../developer-quickstart.md) for an isolated development environment and [Code map](../code-map.md) to locate implementation ownership.
 
-Publish only the mapped topic `.md` files, `Home.md` and `_Sidebar.md` to the separate Wiki checkout after the owner's source/privacy review. Do not copy this manifest/readme, historical reports, raw audits or screenshots into the Wiki. Review the exact Wiki diff and read back rendered navigation after publication. No workflow in this repository publishes the Wiki.
+## Publication set
 
-Mirrors reflect current integrated source/context/job documentation. Before publication, refresh after any further integration or version changes; source tests and local-preview checks do not close native-window/picker or release gates. Main-repository links are intended for the approved published default branch, not proof it already contains these files.
+- Topic pages: the values in `sources.json`, each suffixed `.md`.
+- Navigation: `Home.md`, `_Sidebar.md`, `_Footer.md`.
+- Excluded: this README, the manifest, private notes, raw reports, screenshots, runtime data and installers.
+
+The generator preserves source attribution, adds breadcrumbs and contents navigation to longer pages, rewrites mapped targets to stable Wiki names, and resolves other repository links as files or directories while retaining fragments. Set `WIKI_SOURCE_REF` to a reviewed source commit when a new target is not yet integrated into `main`.
+
+Edit canonical pages first and regenerate; edit Home/sidebar/footer directly. Update mapping and grouped navigation together. Validate local targets, heading fragments and Wiki destinations before publishing. No CI workflow publishes the Wiki or clears a binary release.

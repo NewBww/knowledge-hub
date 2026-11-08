@@ -2,6 +2,17 @@
 
 # Privacy, permissions and context
 
+[Documentation home](https://github.com/NewBww/knowledge-hub/wiki/Home) · [Status and limits](https://github.com/NewBww/knowledge-hub/wiki/Documentation)
+
+**On this page**
+
+- [Local-first does not mean no disclosure](#local-first-does-not-mean-no-disclosure)
+- [Separate controls](#separate-controls)
+- [Scoped local context](#scoped-local-context)
+- [Durable work and local retention](#durable-work-and-local-retention)
+- [Provider disclosure](#provider-disclosure)
+- [Retention and deletion](#retention-and-deletion)
+
 **Unfinished source-only DRAFT — 0.3.0 unreleased.** This is not a finished product or a cleared binary release.
 
 ## Local-first does not mean no disclosure
@@ -37,7 +48,7 @@ Work pauses on Quit and eligible jobs recover on reopen after revalidation; no i
 
 ## Provider disclosure
 
-The destination is the service **and any routed underlying provider**, not merely the CLI or loopback proxy. Remote inference may cost money. OpenRouter has constrained routing in this implementation; these constraints are not a universal no-retention guarantee. Official CLIs can retain local traces, and provider safety/legal/account records may remain. Review the actual account terms/settings. A training opt-out is not equivalent to zero retention. ChatGPT/Codex execution is currently blocked; see [transport-specific limits](https://github.com/NewBww/knowledge-hub/blob/main/docs/curator-connections.md).
+The destination is the service **and any routed underlying provider**, not merely the CLI or loopback proxy. Remote inference may cost money. OpenRouter has constrained routing in this implementation; these constraints are not a universal no-retention guarantee. Official CLIs can retain local traces, and provider safety/legal/account records may remain. Review the actual account terms/settings. A training opt-out is not equivalent to zero retention. ChatGPT/Codex execution is currently blocked; see [transport-specific limits](https://github.com/NewBww/knowledge-hub/wiki/Connections).
 
 App-owned OpenRouter secrets use the macOS credential store, with no plaintext fallback. Official clients own their authentication and may consult OS account stores; an isolated HOME is not proof of complete account-store isolation. Never paste passwords, API keys, OAuth codes or tokens into captures, issues, MCP arguments or screenshots.
 

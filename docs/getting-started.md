@@ -1,5 +1,7 @@
 # Getting started
 
+Use this guide to try the app and understand your first saved capture. For a development environment, targeted tests and contribution workflow, use the [developer quickstart](developer-quickstart.md). Reading and search need no model account. See [current status](documentation.md) before treating a source checkout or local preview as a finished release.
+
 ## Packaged app
 
 1. Obtain an explicitly approved candidate from this repository's release page. Do not infer publication or binary clearance from a version mentioned in documentation. Check the release notes for supported architecture and minimum macOS version.

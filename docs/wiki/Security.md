@@ -2,6 +2,15 @@
 
 # Security policy
 
+[Documentation home](https://github.com/NewBww/knowledge-hub/wiki/Home) · [Status and limits](https://github.com/NewBww/knowledge-hub/wiki/Documentation)
+
+**On this page**
+
+- [Supported scope](#supported-scope)
+- [Report privately](#report-privately)
+- [Boundaries worth reporting](#boundaries-worth-reporting)
+- [Secrets and incident response](#secrets-and-incident-response)
+
 ## Supported scope
 
 Security fixes target the current maintained source/default branch and explicitly supported releases. There is no promised support window for historical local previews. A local-first design is not a sandbox against malicious software running as your OS account.
@@ -20,4 +29,4 @@ Human-only approval bypass; agent capture-access bypass; secret exposure; Host/O
 
 If a credential is exposed, stop processing, revoke/rotate it with the issuing service and review downstream access. Removing a Git file or capture does not revoke a credential or remove historical/remote copies. Preserve necessary evidence privately and sanitize reports. Signing-key compromise requires a reviewed authenticated recovery plan, never silent replacement of the pinned publisher key.
 
-See [privacy boundaries](https://github.com/NewBww/knowledge-hub/wiki/Privacy-and-Context), [connections](https://github.com/NewBww/knowledge-hub/blob/main/docs/curator-connections.md) and [release trust gates](https://github.com/NewBww/knowledge-hub/blob/main/docs/releasing.md). Application MIT licensing does not certify third-party binary redistribution or account/provider privacy.
+See [privacy boundaries](https://github.com/NewBww/knowledge-hub/wiki/Privacy-and-Context), [connections](https://github.com/NewBww/knowledge-hub/wiki/Connections) and [release trust gates](https://github.com/NewBww/knowledge-hub/blob/main/docs/releasing.md). Application MIT licensing does not certify third-party binary redistribution or account/provider privacy.

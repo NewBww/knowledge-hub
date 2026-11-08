@@ -1,5 +1,7 @@
 # Architecture and integration
 
+This is the boundary/reference guide for implementers. Start with the [developer quickstart](developer-quickstart.md) to run locally, or use the [code map](code-map.md) to locate a service and its test boundary before editing.
+
 ## Runtime
 
 A dedicated macOS pywebview/WebKit window hosts local HTML/CSS/JavaScript served by FastAPI on an ephemeral IPv4 loopback port. Python application services and one SQLite store own canonical knowledge and revisions. The desktop session and agent bearer identity have different authority. The app is not a LAN multi-user server.

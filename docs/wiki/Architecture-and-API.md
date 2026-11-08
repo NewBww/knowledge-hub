@@ -2,6 +2,18 @@
 
 # Architecture and integration
 
+[Documentation home](https://github.com/NewBww/knowledge-hub/wiki/Home) · [Status and limits](https://github.com/NewBww/knowledge-hub/wiki/Documentation)
+
+**On this page**
+
+- [Runtime](#runtime)
+- [MCP: preferred agent boundary](#mcp-preferred-agent-boundary)
+- [HTTP](#http)
+- [Extension rules](#extension-rules)
+- [Scoped sources and durable jobs](#scoped-sources-and-durable-jobs)
+
+This is the boundary/reference guide for implementers. Start with the [developer quickstart](https://github.com/NewBww/knowledge-hub/wiki/Developer-Quickstart) to run locally, or use the [code map](https://github.com/NewBww/knowledge-hub/wiki/Code-Map) to locate a service and its test boundary before editing.
+
 ## Runtime
 
 A dedicated macOS pywebview/WebKit window hosts local HTML/CSS/JavaScript served by FastAPI on an ephemeral IPv4 loopback port. Python application services and one SQLite store own canonical knowledge and revisions. The desktop session and agent bearer identity have different authority. The app is not a LAN multi-user server.
@@ -10,7 +22,7 @@ A dedicated macOS pywebview/WebKit window hosts local HTML/CSS/JavaScript served
 
 ## MCP: preferred agent boundary
 
-Use the [bootstrap guide](https://github.com/NewBww/knowledge-hub/blob/main/docs/agent-bootstrap.md) for installation and configuration. Discover `capabilities_get`, `warehouse_state`, setup resources and tool input schemas before use. `knowledge_search`, `context_get` and `knowledge_get` support progressive revision-bound retrieval, explicit coverage and omissions; the default budget is 8,000 serialized JSON characters, **not tokens** and not universal across tools. Follow continuation/cursor metadata; stale revisions require a fresh read.
+Use the [bootstrap guide](https://github.com/NewBww/knowledge-hub/wiki/Agent-Setup) for installation and configuration. Discover `capabilities_get`, `warehouse_state`, setup resources and tool input schemas before use. `knowledge_search`, `context_get` and `knowledge_get` support progressive revision-bound retrieval, explicit coverage and omissions; the default budget is 8,000 serialized JSON characters, **not tokens** and not universal across tools. Follow continuation/cursor metadata; stale revisions require a fresh read.
 
 Agents can inspect and propose. They cannot authenticate, grant access, enable processing or approve their own changes. Unknown/extra arguments are rejected. Source and model text are untrusted data, never privileged instructions. No arbitrary shell, SQL or unrestricted filesystem tools are exposed. See [retrieval](https://github.com/NewBww/knowledge-hub/blob/main/docs/agent-retrieval.md) and [Curator contract](https://github.com/NewBww/knowledge-hub/blob/main/docs/curator-contract.md).
 

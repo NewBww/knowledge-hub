@@ -2,6 +2,8 @@
 
 # Troubleshooting and accessibility
 
+[Documentation home](https://github.com/NewBww/knowledge-hub/wiki/Home) · [Status and limits](https://github.com/NewBww/knowledge-hub/wiki/Documentation)
+
 | Symptom | Safe next step |
 | --- | --- |
 | Empty Library | Check Warehouse/Activity. Saved or accepted knowledge need not have an accepted book. |
@@ -32,4 +34,4 @@ These are implemented shortcuts, not a claim that every OS-level menu shortcut o
 
 Use the repository bug form for non-sensitive reports: app/source version, macOS/architecture, installation mode, exact steps and a sanitized error. Say whether it reproduces in a fresh synthetic data directory. Do not attach live databases, personal captures, credential profiles, raw logs or screenshots containing knowledge/tokens. Security issues follow [responsible disclosure](https://github.com/NewBww/knowledge-hub/wiki/Security), not a public issue.
 
-Implementation references: [keyboard handlers](https://github.com/NewBww/knowledge-hub/blob/main/src/knowledge_hub/web/app.js), [native runtime](https://github.com/NewBww/knowledge-hub/blob/main/src/knowledge_hub/desktop.py), [connection limits](https://github.com/NewBww/knowledge-hub/blob/main/docs/curator-connections.md).
+Implementation references: [keyboard handlers](https://github.com/NewBww/knowledge-hub/blob/main/src/knowledge_hub/web/app.js), [native runtime](https://github.com/NewBww/knowledge-hub/blob/main/src/knowledge_hub/desktop.py), [connection limits](https://github.com/NewBww/knowledge-hub/wiki/Connections).
