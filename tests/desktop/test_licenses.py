@@ -85,6 +85,75 @@ def test_native_lxml_inventory_detects_static_iconv_and_blocks_release(tmp_path)
     assert str(Path.home()) not in json.dumps(report)
 
 
+def test_lxml_special_permission_headers_are_collected_with_exact_provenance(tmp_path):
+    module = collector()
+    bundle = tmp_path / 'Example.app'
+    bundle.mkdir()
+    target = tmp_path / 'notices'
+    report = module.collect(bundle, target, required_distributions=['lxml', 'proxy_tools'])
+    lxml = next(d for d in report['distributions'] if d['name'] == 'lxml')
+    notices = {n['file']: n for n in lxml['notices']}
+    expected = {
+        'dict': ('ea9e97f88bf4ef8ad1142e12d0e6da003968420aa38094f74b9b51206675438a',
+                 '416253664eb3d95a393be6c61c649a1b5600729bbd1e3ce9123df08b12d8f388'),
+        'list': ('2fdb83809864852d236c64fffa74054699e61887b736e18724d4a8ac0e9684f8',
+                 '8a04740bfd8a37f3006bfc0404aa31429e56ef991cddcd47707ce2a9b1d98506'),
+    }
+    paths = {f'licenses/lxml/libxml2-{name}.c-header.txt' for name in expected}
+    assert paths <= notices.keys(), 'exact libxml2 special permission headers must be indexed'
+    sources = json.loads((ROOT / 'assets/licenses/SOURCES.json').read_text())['lxml']
+    supplements = {n['file']: n for n in sources['notices']}
+    index = (target / 'THIRD_PARTY_NOTICES.md').read_text()
+    for name, (header_sha, member_sha) in expected.items():
+        relative = f'lxml/libxml2-{name}.c-header.txt'
+        output = 'licenses/' + relative
+        notice = notices[output]
+        assert notice == {**supplements[relative], 'file': output}
+        data = (ROOT / 'assets/licenses' / relative).read_bytes()
+        assert (target / output).read_bytes() == data
+        assert hashlib.sha256(data).hexdigest() == notice['sha256'] == header_sha
+        assert notice['source_url'] == ('https://download.gnome.org/sources/libxml2/2.15/'
+                                        'libxml2-2.15.2.tar.xz')
+        assert notice['archive_sha256'] == 'c8b9bc81f8b590c33af8cc6c336dbff2f53409973588a351c95f1c621b13d09d'
+        assert notice['source_member'] == f'libxml2-2.15.2/{name}.c'
+        assert notice['source_member_sha256'] == member_sha
+        assert notice['upstream_commit'] == '3d840e17858de03a09fba8b202e3a89267d5795a'
+        assert notice['upstream_url'] == ('https://raw.githubusercontent.com/GNOME/libxml2/'
+                                          f"{notice['upstream_commit']}/{name}.c")
+        assert notice['extraction'] == 'First /* ... */ comment, including its terminating newline; unchanged bytes.'
+        assert f'[{output}]({output})' in index
+    assert report['release_ready'] is False
+    assert {b['id'] for b in report['blockers']} == {
+        'artifact-selection-review', 'native-runtime-review', 'proxy-tools-license-conflict'}
+    for dist in report['distributions']:
+        for notice in dist['notices']:
+            relative = Path(notice['file'])
+            assert not relative.is_absolute() and '..' not in relative.parts
+            assert hashlib.sha256((target / relative).read_bytes()).hexdigest() == notice['sha256']
+    assert json.loads((target / 'manifest.json').read_text()) == report
+    assert str(Path.home()) not in json.dumps(report)
+
+
+def test_lxml_special_permission_header_tampering_fails_before_output(tmp_path, monkeypatch):
+    """Characterize existing supplemental checksum enforcement for both new assets."""
+    import shutil
+    import pytest
+    module = collector()
+    bundle = tmp_path / 'Example.app'
+    bundle.mkdir()
+    for name in ('dict', 'list'):
+        assets = tmp_path / name / 'assets'
+        shutil.copytree(ROOT / 'assets/licenses/lxml', assets / 'lxml')
+        shutil.copyfile(ROOT / 'assets/licenses/SOURCES.json', assets / 'SOURCES.json')
+        header = assets / f'lxml/libxml2-{name}.c-header.txt'
+        header.write_bytes(header.read_bytes() + b'changed\n')
+        monkeypatch.setattr(module, 'ASSETS', assets)
+        target = tmp_path / name / 'notices'
+        with pytest.raises(module.LicenseError, match='supplemental notice checksum mismatch: lxml'):
+            module.collect(bundle, target, required_distributions=['lxml'])
+        assert not target.exists()
+
+
 def test_selects_actual_freezer_toc_files_not_every_installed_dependency(tmp_path):
     module = collector()
     bundle = tmp_path / 'Example.app'
