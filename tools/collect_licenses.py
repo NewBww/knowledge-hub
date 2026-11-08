@@ -160,6 +160,16 @@ def collect(bundle: Path, destination: Path, *, required_distributions: list[str
     report['runtime'] = {'name': 'CPython', 'version': sys.version.split()[0],
                          'notices': [{'file': 'licenses/CPython/LICENSE.txt',
                                       'sha256': hashlib.sha256(data).hexdigest()}]}
+    for notice in supplemental.get('_runtime', {}).get(report['runtime']['version'], []):
+        relative = Path(notice['file'])
+        if relative.is_absolute() or '..' in relative.parts:
+            raise LicenseError('unsafe runtime supplemental notice path')
+        data = (ASSETS / relative).read_bytes()
+        if hashlib.sha256(data).hexdigest() != notice['sha256']:
+            raise LicenseError('runtime supplemental notice checksum mismatch')
+        output = 'licenses/' + relative.as_posix()
+        payload[output] = data
+        report['runtime']['notices'].append({**notice, 'file': output})
     text = '# Third-party notices\n\nNot a legal clearance or a complete native dependency audit.\n\n'
     text += 'Includes the PyInstaller Bootloader Exception; see the full COPYING.txt below.\n\n'
     for dist in report['distributions']:
@@ -172,6 +182,8 @@ def collect(bundle: Path, destination: Path, *, required_distributions: list[str
         text += ('\nThis software is based in part on the work of the Independent JPEG Group.\n'
                  'This software is based in part on the work of the FreeType Team (https://freetype.org/).\n')
     text += '\n## CPython\n\n[Full runtime license](licenses/CPython/LICENSE.txt)\n'
+    for notice in report['runtime']['notices'][1:]:
+        text += f"- [{notice['file']}]({notice['file']})\n"
     text += '\n## Release prerequisites (unresolved)\n\n'
     for blocker in report['blockers']:
         text += f"- **{blocker['id']}**: {blocker['detail']}\n"
