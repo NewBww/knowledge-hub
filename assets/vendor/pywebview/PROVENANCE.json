@@ -1,0 +1,13 @@
+{
+  "upstream_commit": "238c6705ada00ee3d903c78247e71d9bfecbab87",
+  "upstream_pr": 1872,
+  "upstream_init_sha256": "f7b7c9ef5dd265fffd68cc69b4d921a9b4bf3a37570689d91da53b7257e2bf16",
+  "wheel_url": "https://files.pythonhosted.org/packages/3d/25/9491695c22c4842c5b3903b4dc172e0eecf67a27c0af34a71512c9b76a0a/pywebview-6.2.1-py3-none-any.whl",
+  "wheel_sha256": "9d07275f53894ab4d5e2e0e996227193e7187dec276d9b624dccbce029216b46",
+  "original_init_sha256": "53a631a579ce342fb45efbe4ef024b28deabb34f061bcf058fd818ce27aa7e80",
+  "patched_init_sha256": "e3cab490f013ceb447b0e0943fe049fa825272fdcbc0fd285d10f8849da60941",
+  "license_sha256": "4a988dd3598832cd3653de20dc33cb677d0fb53ab5551c879ca31280ae653675",
+  "version": "6.2.1+kh.1",
+  "modification": "Backport five module properties from the pinned upstream PR using PEP 562 and a lazy screens sequence; remove proxy_tools import and dependency. Other wheel payloads unchanged.",
+  "release_ready": false
+}
