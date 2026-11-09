@@ -1,0 +1,32 @@
+{
+  "purpose": "source-bound vendored JS copyright and full grants",
+  "package_versions": [
+    "6.2.1",
+    "6.2.1+kh.1"
+  ],
+  "installed_files": {
+    "webview/js/lib/dom_json.js": "70fae2a8a8ebc790dc616aa7976074cedd802275c173c90ad4bf3bd14163f9c4",
+    "webview/js/lib/polyfill.js": "481a08f5337a770acf49b38c2f58dd0c95f92bf9dbd92bf82b596836ea343ab5"
+  },
+  "notices": [
+    {
+      "file": "pywebview/LICENSE.domJSON.txt",
+      "sha256": "bb23d3c05427c6dcec0a085c8943a50bd3ba2e1ec589faf4cf5ec57f1b9b08d2",
+      "upstream_commit": "6e8fbc0671cb04410067bd9a3be4aecdbae637a9",
+      "source_url": "https://raw.githubusercontent.com/azaslavsky/domJSON/6e8fbc0671cb04410067bd9a3be4aecdbae637a9/LICENSE.md",
+      "coverage": "complete version-pinned MIT grant for the identified vendored domJSON0.1.2 implementation"
+    },
+    {
+      "file": "pywebview/LICENSE.native-promise-only.txt",
+      "sha256": "2efa5a3d7e79f348c94b1e548937b268d80cb979fb7c274688bd4b5e1cf7c72e",
+      "upstream_commit": "519d1cddb1128e3c51e93f5f4ec03460c42b51e9",
+      "source_url": "https://raw.githubusercontent.com/getify/native-promise-only/519d1cddb1128e3c51e93f5f4ec03460c42b51e9/README.md",
+      "source_sha256": "d6772b9845bc1ab0c3e568f6c64d091f8eaa022b492c805fdb750afd59b13fbf",
+      "license_page_url": "https://getify.mit-license.org/",
+      "license_page_html_sha256": "611e4bde9faa0656bcac7c1197bcbae4eb52c9606827bafeda7472d1c0a416e8",
+      "retrieved_at": "2026-11-09T08:01:05.173360+00:00",
+      "extraction": "Exact shipped code header plus article text from maintainer-linked MIT grant; source declaration and raw page retained in audit evidence."
+    }
+  ],
+  "release_ready": false
+}

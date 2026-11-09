@@ -1,0 +1,21 @@
+# Bundled CPython build and packaging notes
+
+The runtime is CPython 3.12.13 from python-build-standalone release 20260303,
+for aarch64-apple-darwin. Its producer build source is pinned at:
+https://github.com/astral-sh/python-build-standalone/tree/7442a32b4c5d6d52e966966032b3e7830429866d
+
+Knowledge Hub packages that shared runtime and selected standard-library modules
+using PyInstaller. Installation paths in Mach-O load commands are relocated to
+bundle-relative runtime paths, and code signatures are replaced with local ad-hoc
+signatures. These packaging changes do not claim an independently rebuilt runtime
+or unmodified upstream build tooling. No application-authored interpreter
+algorithm changes are asserted. Producer build configuration and upstream patches
+remain attributable to the pinned python-build-standalone source above.
+
+The main Python LICENSE, component-specific native dependency notices, exact
+per-file grants, and upstream additional-notice document accompany this runtime.
+The additional document is retained as a conservative source-notice superset;
+its list is not an inventory of all linked code and is not complete legal
+certification. Runtime/native code lineage and applicability are reviewed
+separately against each actual installer. No copyright or license text is
+replaced by these packaging notes.

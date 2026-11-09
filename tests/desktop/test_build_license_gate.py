@@ -80,6 +80,7 @@ def test_build_collects_notices_before_signing_and_stops_public_output(tmp_path,
     monkeypatch.setattr(module, 'bundle_plist', lambda metadata: {})
     monkeypatch.setattr(module.subprocess, 'run', lambda *args, **kwargs: None)
     monkeypatch.setattr(module, 'embed_sparkle', lambda *args: calls.append('embed'))
+    monkeypatch.setattr(module, 'sanitize_install_metadata', lambda *args: calls.append('sanitize') or [])
     monkeypatch.setattr(module, 'sign_app', lambda *args: calls.append('sign'))
     monkeypatch.setattr(module, 'stage_image', lambda *args: None)
 
@@ -90,7 +91,7 @@ def test_build_collects_notices_before_signing_and_stops_public_output(tmp_path,
     monkeypatch.setattr(module, 'collect_bundle_notices', blocked)
     with pytest.raises(RuntimeError, match='publication blocked'):
         module.main(['--out', str(tmp_path), '--sparkle-distribution', str(tmp_path / 'sdk')])
-    assert calls == ['embed', 'notices']
+    assert calls == ['embed', 'sanitize', 'notices']
 
 
 @pytest.mark.parametrize('local_preview', [True, False])

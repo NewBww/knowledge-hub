@@ -51,7 +51,7 @@ def collect(bundle: Path, destination: Path, *, required_distributions: list[str
         def visit(value):
             if isinstance(value, (tuple, list)):
                 if (len(value) == 3 and all(isinstance(v, str) for v in value)
-                        and value[2].startswith(('PYMODULE', 'EXTENSION', 'BINARY', 'DATA'))):
+                        and value[2].startswith(('PYMODULE', 'PYSOURCE', 'EXTENSION', 'BINARY', 'DATA'))):
                     for owner in owners.get(str(Path(value[1]).resolve()), []):
                         selected.setdefault(owner, 'analysis-toc')
                 else:
@@ -130,7 +130,7 @@ def collect(bundle: Path, destination: Path, *, required_distributions: list[str
             notices.append({'file': output, 'sha256': hashlib.sha256(data).hexdigest()})
         if name in supplemental:
             supplement = supplemental[name]
-            if supplement['version'] != dist.version:
+            if dist.version not in supplement.get('versions', [supplement['version']]):
                 raise LicenseError(f'supplemental notices need review for {name} {dist.version}')
             for relative, expected in supplement.get('installed_files', {}).items():
                 if hashlib.sha256(Path(str(dist.locate_file(relative))).read_bytes()).hexdigest() != expected:

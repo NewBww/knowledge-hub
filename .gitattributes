@@ -3,3 +3,5 @@ assets/licenses/native-rust/** -text whitespace=-blank-at-eof,cr-at-eol
 assets/licenses/native-rust/README.md text eol=lf whitespace=blank-at-eol,blank-at-eof,space-before-tab
 assets/licenses/native-rust/PROVENANCE.json text eol=lf whitespace=blank-at-eol,blank-at-eof,space-before-tab
 assets/vendor/pywebview/__init__.py -text whitespace=-blank-at-eof
+assets/licenses/lxml/LICENSE.elementpath-header.txt -text whitespace=-blank-at-eof
+assets/licenses/pywebview/LICENSE.domJSON.txt -text whitespace=-blank-at-eof

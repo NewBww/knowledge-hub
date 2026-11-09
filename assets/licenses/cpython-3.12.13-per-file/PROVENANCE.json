@@ -1,0 +1,106 @@
+{
+  "upstream_tag": "v3.12.13",
+  "upstream_commit": "3bb231a6a5dc02b95658877318bf61501a7209e9",
+  "source_scope": "exact observed embedded per-file implementation notices plus complete upstream additional-notice document",
+  "observed_runtime_sha256": "040e10d0d60ad8a9c81232e3b7a89850236d3d1169adc1bc767351bdaad72a7a",
+  "observed_implementation_evidence": [
+    {
+      "component": "HACL*",
+      "defined_symbol_evidence": [
+        "000000000022045c t _Hacl_Hash_MD5_update_multi",
+        "000000000024d288 t _python_hashlib_Hacl_Hash_SHA1_copy"
+      ]
+    },
+    {
+      "component": "Mersenne Twister",
+      "defined_symbol_evidence": [
+        "00000000002e23bc T _PyInit__random"
+      ]
+    },
+    {
+      "component": "David M. Gay dtoa/strtod",
+      "defined_symbol_evidence": [
+        "00000000000c8f28 T __Py_dg_dtoa",
+        "0000000000142c90 T __Py_dg_strtod"
+      ]
+    },
+    {
+      "component": "SipHash13/24 implementation",
+      "defined_symbol_evidence": [
+        "00000000007d0ab0 t _pysiphash",
+        "00000000007d0870 t _siphash13"
+      ]
+    },
+    {
+      "component": "BSD kqueue interface",
+      "defined_symbol_evidence": [
+        "000000000083ace4 t _kqueue_event_init",
+        "0000000000acf9dc s _kqueue_event_init.fmt",
+        "0000000000dd4f20 d _kqueue_event_init.kwlist",
+        "000000000083ade4 t _kqueue_event_richcompare"
+      ]
+    }
+  ],
+  "notices": [
+    {
+      "file": "cpython-3.12.13-per-file/LICENSE.HACL.txt",
+      "sha256": "912ad428ca5f4b181100446204776c71c53552a265e13413d769ef6671204993",
+      "source_path": "Modules/_hacl/Hacl_Hash_MD5.c",
+      "source_commit": "3bb231a6a5dc02b95658877318bf61501a7209e9",
+      "source_url": "https://raw.githubusercontent.com/python/cpython/3bb231a6a5dc02b95658877318bf61501a7209e9/Modules/_hacl/Hacl_Hash_MD5.c",
+      "source_sha256": "f71cf6a0e8f09354c2af2c785a1d36e0cba7613a589be01ca8a3d8478f4c8874",
+      "coverage": "version-pinned per-file grant; observed runtime implementation independently reviewed"
+    },
+    {
+      "file": "cpython-3.12.13-per-file/LICENSE.MersenneTwister.txt",
+      "sha256": "d454ad6ba0513da75bcf70b613a66c9a305c22f46300dcd94e2de8df9a643efe",
+      "source_path": "Modules/_randommodule.c",
+      "source_commit": "3bb231a6a5dc02b95658877318bf61501a7209e9",
+      "source_url": "https://raw.githubusercontent.com/python/cpython/3bb231a6a5dc02b95658877318bf61501a7209e9/Modules/_randommodule.c",
+      "source_sha256": "ee5359339fe002582315d4c65e7c8e442903c4295d608d17aec0ad27f2224b83",
+      "coverage": "version-pinned per-file grant; observed runtime implementation independently reviewed"
+    },
+    {
+      "file": "cpython-3.12.13-per-file/LICENSE.dtoa.txt",
+      "sha256": "45a0b19676f406b6aaeb9ebc04961ba711d38b13003a15b38ff7174b2568b0c4",
+      "source_path": "Python/dtoa.c",
+      "source_commit": "3bb231a6a5dc02b95658877318bf61501a7209e9",
+      "source_url": "https://raw.githubusercontent.com/python/cpython/3bb231a6a5dc02b95658877318bf61501a7209e9/Python/dtoa.c",
+      "source_sha256": "4c55833dc0ea9eb7c396ed6da0c6a21406f6b4fa2d0c631c5f10c60f0f835e2e",
+      "coverage": "version-pinned per-file grant; observed runtime implementation independently reviewed"
+    },
+    {
+      "file": "cpython-3.12.13-per-file/LICENSE.SipHash.txt",
+      "sha256": "445b681dc3ce8e5bb55d1b86d655c8d51f19db32b4cafa669ec48ea92b5eb195",
+      "source_path": "Python/pyhash.c",
+      "source_commit": "3bb231a6a5dc02b95658877318bf61501a7209e9",
+      "source_url": "https://raw.githubusercontent.com/python/cpython/3bb231a6a5dc02b95658877318bf61501a7209e9/Python/pyhash.c",
+      "source_sha256": "7f18429290df0726669cbd6d8b5a8b48b843efff648fe8863d48da5db4745628",
+      "coverage": "version-pinned per-file grant; observed runtime implementation independently reviewed"
+    },
+    {
+      "file": "cpython-3.12.13-per-file/LICENSE.kqueue.txt",
+      "sha256": "a1dd1ed8e59ad72d0d5b3b15204e4baf05b05ff1bd91be73f37611806d9f9d29",
+      "source_path": "Modules/selectmodule.c",
+      "source_commit": "3bb231a6a5dc02b95658877318bf61501a7209e9",
+      "source_url": "https://raw.githubusercontent.com/python/cpython/3bb231a6a5dc02b95658877318bf61501a7209e9/Modules/selectmodule.c",
+      "source_sha256": "f68e97800617766bdcbd5911036dc0a11f3ca1cf62f0848f6a1781d4779cbb83",
+      "coverage": "version-pinned per-file grant; observed runtime implementation independently reviewed"
+    },
+    {
+      "file": "cpython-3.12.13-per-file/LICENSE.additional-upstream.rst",
+      "sha256": "341832873fd316a37927e79385093fbbfd40a467428480835fe435a80cadf4e5",
+      "source_path": "Doc/license.rst",
+      "source_commit": "3bb231a6a5dc02b95658877318bf61501a7209e9",
+      "source_url": "https://raw.githubusercontent.com/python/cpython/3bb231a6a5dc02b95658877318bf61501a7209e9/Doc/license.rst",
+      "source_sha256": "341832873fd316a37927e79385093fbbfd40a467428480835fe435a80cadf4e5",
+      "coverage": "complete versioned upstream additional-notice document; conservative superset, not a claim all listed implementations ship"
+    },
+    {
+      "file": "cpython-3.12.13-per-file/BUILD-NOTES.txt",
+      "sha256": "ab0f8891c616216cfce720fee44612d7bb266d8c697e8aa506a5159e6cab5170",
+      "coverage": "application-authored runtime build/packaging summary; not an upstream license or clearance"
+    }
+  ],
+  "release_ready": false
+}

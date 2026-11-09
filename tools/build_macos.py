@@ -163,6 +163,7 @@ def pyinstaller_command(stage: Path, out: Path, work: Path, metadata: dict) -> l
             '--osx-bundle-identifier', metadata['bundle_id'],
             '--target-architecture', metadata['architecture'],
             '--collect-all', 'webview',
+            '--exclude-module', 'lxml.isoschematron',
             '--hidden-import', 'webview.platforms.cocoa',
             '--hidden-import', 'Security',
             '--hidden-import', 'PyObjCTools.AppHelper',
@@ -269,6 +270,31 @@ def embed_sparkle(app: Path, distribution: Path) -> None:
     shutil.copytree(framework, destination, symlinks=True)
 
 
+def sanitize_install_metadata(app: Path) -> list[str]:
+    """Exclude installation-only URLs without removing source/license provenance."""
+    import csv
+    import io
+
+    removed = []
+    for path in sorted(app.rglob('direct_url.json')):
+        if not path.parent.name.endswith('.dist-info'):
+            continue
+        if path.is_symlink() or any(p.is_symlink() for p in path.parents):
+            raise ValueError('installation metadata must not traverse symlinks')
+        record = path.parent / 'RECORD'
+        if record.is_symlink():
+            raise ValueError('installation metadata RECORD must not be a symlink')
+        if record.exists():
+            rows = list(csv.reader(io.StringIO(record.read_text())))
+            target = path.parent.name + '/direct_url.json'
+            output = io.StringIO(newline='')
+            csv.writer(output, lineterminator='\n').writerows(row for row in rows if row[0] != target)
+            record.write_text(output.getvalue())
+        path.unlink()
+        removed.append(path.relative_to(app).as_posix())
+    return removed
+
+
 def collect_bundle_notices(app: Path, distribution: Path, analysis_toc: Path, *,
                            collector=None, local_preview: bool = False,
                            lxml_candidate: Path | None = None) -> dict:
@@ -361,6 +387,7 @@ def main(argv: list[str] | None = None) -> int:
         with plist_path.open('wb') as stream:
             plistlib.dump(plist, stream)
         embed_sparkle(app, args.sparkle_distribution)
+        removed_install_metadata = sanitize_install_metadata(app)
         notices = collect_bundle_notices(app, args.sparkle_distribution,
                                          Path(temporary) / 'build/Knowledge Hub/Analysis-00.toc',
                                          local_preview=args.local_preview,
@@ -376,7 +403,7 @@ def main(argv: list[str] | None = None) -> int:
         subprocess.run(plan['dmg'], check=True)
         subprocess.run(['hdiutil', 'verify', str(plan['image'])], check=True)
         (out / f"{plan['image'].stem}.build.json").write_text(
-            json.dumps({**plan['metadata'], **({'lxml_candidate': plan['lxml_candidate']} if 'lxml_candidate' in plan else {}), **({'local_preview': True,
+            json.dumps({**plan['metadata'], 'removed_install_metadata': removed_install_metadata, **({'lxml_candidate': plan['lxml_candidate']} if 'lxml_candidate' in plan else {}), **({'local_preview': True,
                 'publication_blocked': True, 'license_blockers': notices['blockers']}
                 if args.local_preview else {})}, indent=2) + '\n')
         print(f"Built {plan['image']}\nTemporary app staging removed after packaging.\nAd-hoc local-test signature only; not notarized.")
