@@ -1,8 +1,7 @@
 name: CI
 on:
-  push:
-    branches: [main, develop]
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 permissions:
   contents: read
@@ -12,6 +11,7 @@ concurrency:
 jobs:
   tests:
     name: tests
+    if: github.event_name == 'workflow_dispatch' || !github.event.pull_request.draft
     runs-on: macos-15-intel
     timeout-minutes: 30
     env:
